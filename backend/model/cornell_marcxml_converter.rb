@@ -39,6 +39,12 @@ CornellMarcXMLConverter.configure do |config|
         resource.user_defined['real_1'] = bibid
       end
 	}
+	
+	config["/record"][:map]["datafield[@tag='245']/subfield[@code='a']"] = -> resource, node {
+		title = node.inner_text
+    resource['title'] = title.gsub(/[,]$/,'')
+	}
+
 	config["/record"][:map]["datafield[@tag='524']"] = CornellMarcXMLConverter.cornell_citation_note('prefercite', 'Preferred Citation', "{$3: } {$a. } {$2}")
 
 	

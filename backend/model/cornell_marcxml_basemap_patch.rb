@@ -17,5 +17,4 @@ def cornell_citation_note(note_type, label = nil, template=nil, *tmpl_args)
       }
     }
   end
-
 end
