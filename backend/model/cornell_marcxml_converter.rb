@@ -1,4 +1,6 @@
 
+require_relative 'cornell_marcxml_basemap_patch'
+
 class CornellMarcXMLConverter < MarcXMLConverter
 	
 	# Create the import type for marcxml agents 
@@ -36,5 +38,10 @@ CornellMarcXMLConverter.configure do |config|
       unless resource.user_defined['real_1']
         resource.user_defined['real_1'] = bibid
       end
-  }
+	}
+	config["/record"][:map]["datafield[@tag='524']"] = CornellMarcXMLConverter.cornell_citation_note('prefercite', 'Preferred Citation', "{$3: } {$a. } {$2}")
+
+	
+
+
 end
