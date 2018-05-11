@@ -45,6 +45,11 @@ CornellMarcXMLConverter.configure do |config|
     resource['title'] = title.gsub(/[,]$/,'')
 	}
 
+	config["/record"][:map]["datafield[@tag='544']"] =  CornellMarcXMLConverter.cornell_related_materials_note('relatedmaterial', 'Related Archival Materials', %q|
+	{Indicator 1 @ind1--}{$3: }{$d. }
+	{Address--$b, }{Country--$c. }{Provenance--$e. }{Note--$n}.|,
+				{'ind1'=>{'1'=>'Associated Materials', '2'=>'Related Materials'}})
+
 	config["/record"][:map]["datafield[@tag='524']"] = CornellMarcXMLConverter.cornell_citation_note('prefercite', 'Preferred Citation', "{$3: } {$a. } {$2}")
 
 	
