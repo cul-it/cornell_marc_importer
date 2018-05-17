@@ -40,8 +40,8 @@ CornellMarcXMLConverter.configure do |config|
       end
 	}
 	
-	config["/record"][:map]["datafield[@tag='245']/subfield[@code='a']"] = -> resource, node {
-		title = node.inner_text
+	config["/record"][:map]["datafield[@tag='245']"] = -> resource, node {
+		title = CornellMarcXMLConverter.subfield_template("{$a  }{$b }{[$h] }{$k , }{$n , }{$p , }{$s }{/ $c}", node)
     resource['title'] = title.gsub(/[,]$/,'')
 	}
 
