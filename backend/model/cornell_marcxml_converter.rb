@@ -33,12 +33,13 @@ CornellMarcXMLConverter.configure do |config|
   config.doc_frag_nodes.uniq! 
   config["/record"][:obj] = :resource
   config["/record"][:map]["controlfield[@tag='001']"] = -> resource, node {
-    bibid = node.inner_text
-      resource.user_defined ||= ASpaceImport::JSONModel(:user_defined).new
-      unless resource.user_defined['real_1']
-        resource.user_defined['real_1'] = bibid
-      end
+	bibid = node.inner_text
+	if !resource.multi_identifiers.include?('bibid')
+	  resource.multi_identifiers = [{'jsonmodel_type' => 'multi_identifier', 'identifier_type' => 'bibid', 'identifier_value' => bibid}]
+	end
 	}
+
+
 	
 	config["/record"][:map]["datafield[@tag='245']"] = -> resource, node {
 		title = CornellMarcXMLConverter.subfield_template("{$a  }{$b }{[$h] }{$k , }{$n , }{$p , }{$s }{/ $c}", node)
