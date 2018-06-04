@@ -16,6 +16,7 @@ class CornellMarcXMLConverter < MarcXMLConverter
 	# Alter the information recieved from the resource 
 	def initialize(input_file)
 		super(input_file)
+		
 	end
 		
 	def self.instance_for(type, input_file)
@@ -34,9 +35,7 @@ CornellMarcXMLConverter.configure do |config|
   config["/record"][:obj] = :resource
   config["/record"][:map]["controlfield[@tag='001']"] = -> resource, node {
 	bibid = node.inner_text
-	if !resource.multi_identifiers.include?('bibid')
 	  resource.multi_identifiers = [{'jsonmodel_type' => 'multi_identifier', 'identifier_type' => 'bibid', 'identifier_value' => bibid}]
-	end
 	}
 
 
