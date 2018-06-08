@@ -42,7 +42,22 @@ CornellMarcXMLConverter.configure do |config|
 	
 	config["/record"][:map]["datafield[@tag='245']"] = -> resource, node {
 		title = CornellMarcXMLConverter.subfield_template("{$a  }{$b }{[$h] }{$k , }{$n , }{$p , }{$s }{/ $c}", node)
-    resource['title'] = title.gsub(/[,]$/,'')
+	resource['title'] = title.gsub(/[,]$/,'')
+	expression = MarcXMLConverter.concatenate_subfields(%w(f g), node, '-')
+          unless expression.empty?
+            if resource.dates[0]
+              resource.dates[0]['expression'] = expression
+            else
+				MarcXMLConverter.make(:date)  do |date|
+                date.label = 'creation'
+                date.date_type = 'inclusive'
+                date.expression = expression
+                resource.dates << date
+              end
+            end
+          else
+            resource['_needs_date'] = true
+          end
 	}
 
 	config["/record"][:map]["datafield[@tag='520'][@ind1!='3' and @ind1!='8']"] = CornellMarcXMLConverter.cornell_520('scopecontent','Scope and content',"{$3: }{$a. }{($u) }{\n$b}")	
