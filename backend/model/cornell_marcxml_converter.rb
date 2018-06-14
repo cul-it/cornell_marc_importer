@@ -71,7 +71,11 @@ CornellMarcXMLConverter.configure do |config|
 
 	config["/record"][:map]["datafield[@tag='524']"] = CornellMarcXMLConverter.cornell_citation_note('prefercite', 'Preferred Citation', "{$3: } {$a. } {$2}")
 
-	
+
+	config["/record"][:map]["datafield[@tag='099']"] = -> resource, node {
+		id = node.inner_text
+		resource.id_0 = id unless id.empty?
+	}
 
 
 end
