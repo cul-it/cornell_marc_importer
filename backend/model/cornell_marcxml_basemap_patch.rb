@@ -45,10 +45,7 @@ def cornell_citation_note(note_type, label = nil, template=nil, *tmpl_args)
         "self::datafield" => -> note, node {
           content = template ? subfield_template(template, node, *tmpl_args) : node.inner_text
           content = content.gsub(/[#]/,', #')
-
-
           label = label.call(node) if label.is_a?(Proc)
-
           note.send('label=', label) if label
           note.type = note_type
           note.subnotes = [{'jsonmodel_type' => 'note_text', 'content' => content}]

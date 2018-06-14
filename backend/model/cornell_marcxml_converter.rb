@@ -64,8 +64,9 @@ CornellMarcXMLConverter.configure do |config|
 	config["/record"][:map]["datafield[@tag='520'][@ind1='8']"] = CornellMarcXMLConverter.cornell_520('scopecontent','Scope and content',"{$3: }{$a. }{($u) }{\n$b}")	
 
 
-	config["/record"][:map]["datafield[@tag='544']"] =  CornellMarcXMLConverter.cornell_related_materials_note('relatedmaterial', 'Related Archival Materials', %q|
-	{Indicator 1 @ind1--}{$3: }{$d. }
+	config["/record"][:map]["datafield[@tag='544']"] =  
+	CornellMarcXMLConverter.cornell_related_materials_note('relatedmaterial', 'Related Archival Materials', %q|
+	{$3: }{$a }{$d. }
 	{Address--$b, }{Country--$c. }{Provenance--$e. }{Note--$n}.|,
 				{'ind1'=>{'1'=>'Associated Materials', '2'=>'Related Materials'}})
 
