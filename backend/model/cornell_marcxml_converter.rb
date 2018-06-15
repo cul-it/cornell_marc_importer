@@ -56,7 +56,12 @@ CornellMarcXMLConverter.configure do |config|
               end
             end
           else
-            resource['_needs_date'] = true
+            MarcXMLConverter.make(:date)  do |date|
+							date.label = 'creation'
+							date.date_type = 'inclusive'
+							date.expression = "Undated"
+							resource.dates << date
+						end
           end
 	}
 
