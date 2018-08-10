@@ -37,6 +37,8 @@ def cornell_citation_note(note_type, label = nil, template=nil, *tmpl_args)
   end
 
 
+
+
   def cornell_related_materials_note(note_type, label = nil, template=nil, *tmpl_args)
     {
       :obj => :note_multipart,
