@@ -83,5 +83,9 @@ CornellMarcXMLConverter.configure do |config|
 		resource.id_0 = id unless id.empty?
 	}
 
+	config["/record"][:map]["datafield[@tag='852']/subfield[@code='j']"] = -> resource, node {
+		id = node.inner_text
+		resource.id_0 = id unless id.empty?
+	}
 
 end
